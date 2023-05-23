@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * @todo
  * @param index - индекс поля
@@ -24,6 +25,32 @@
  * */
 export function calcTileType(index, boardSize) {
   // TODO: ваш код будет тут
+  if (boardSize === 8) {
+    if (index === 0) {
+      return 'top-left';
+    }
+    if (index === 7) {
+      return 'top-right';
+    }
+    if (index > 0 && index < 7) {
+      return 'top';
+    }
+    if (index % 8 === 0) {
+      if (index === 56) {
+        return 'bottom-left';
+      }
+      return 'left';
+    }
+    if (index > 56 && index < 63) {
+      return 'bottom';
+    }
+    if (index === 63) {
+      return 'bottom-right';
+    }
+    if (index === 15 || index === 23 || index === 31 || index === 39 || index === 47 || index === 55) {
+      return 'right';
+    }
+  }
   return 'center';
 }
 
