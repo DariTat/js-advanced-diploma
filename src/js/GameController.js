@@ -205,8 +205,10 @@ export default class GameController {
         target.character.health -= stone;
         if (target.character.health <= 0) {
           const idx = this.position.indexOf(target);
+          this.gamePlay.deselectCell(target.position);
           this.position.splice(idx, 1);
           this.playerTeam.members.delete(target.character);
+          
         }
       }).then(() => {
         this.gamePlay.redrawPositions(this.position);
@@ -327,14 +329,15 @@ export default class GameController {
         this.playerTeam.addAll([user]);
       } else if (element.character.type === 'vampire') {
         user = new Vampire(element.character.level);
-        this.playerTeam.addAll([user]);
+        this.contenderTeam.addAll([user]);
       } else if (element.character.type === 'undead') {
         user = new Undead(element.character.level);
-        this.playerTeam.addAll([user]);
+        this.contenderTeam.addAll([user]);
       } else if (element.character.type === 'daemon') {
         user = new Daemon(element.character.level);
-        this.playerTeam.addAll([user]);
+        this.contenderTeam.addAll([user]);
       }
+      user.health = element.character.health;
       this.position.push(new PositionedCharacter(user, element.position));
     });
     this.gamePlay.drawUi(themes[this.gameState.level]);
